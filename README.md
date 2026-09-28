@@ -12,11 +12,11 @@ Local AWS, Azure, and Google Cloud storage learning environments for official EN
 
 | Lab | Image | Manifest digest |
 |---|---|---|
-| AWS | `enjyra/aws-labs:console-0.1.0` | `sha256:8f0f5efce4db3c895720456190d3a6a0494d8a6f44d2649e5260d59f1395fc15` |
-| Azure | `enjyra/azure-labs:console-0.1.0` | `sha256:4d482740b95fd86da324cf0e07302db84e1159fde60893d3eca15a5f13ca2c01` |
-| GCP | `enjyra/gcp-labs:console-0.1.0` | `sha256:43f6f2fb9541437b3ae9d4cd73c76675eb7d9d29458eaa64c80ffede29a4b080` |
+| AWS | `enjyra/aws-labs:console-0.1.0` | `sha256:6b48a33bc087d4dc39fb16f5333251dad4c48e1328dcb7f465cd302bd84fae28` |
+| Azure | `enjyra/azure-labs:console-0.1.0` | `sha256:c40a7b639302073d57f70594c705558bfc3042000bd21910b40c7a8a25af4871` |
+| GCP | `enjyra/gcp-labs:console-0.1.0` | `sha256:3d2397ff8278cc71d56814a69ff5178a6b432ca3df8a5ec325e653f771fd7958` |
 
-Each digest is an OCI image index covering both `linux/amd64` and `linux/arm64`.
+Each digest is an OCI image index covering both `linux/amd64` and `linux/arm64`. Each image carries an embedded ENJYRA usage licence (`/licenses/ENJYRA-LAB-LICENSE.txt`, a legal-review-pending draft), full OCI identity/fingerprint labels, an SPDX SBOM, and build provenance — see `docs/FUTURE_SECURE_LAB_DELIVERY.md` in the private course repository for what security measures are real today versus future work. These images are **not cryptographically signed** — no secure signing identity is configured yet.
 
 Release fingerprint (SHA-256 of `checksums.txt`): `d379642c3945d45284f96164d2466365f7e97256b2ef9846c08f449b14ae20b8`.
 
