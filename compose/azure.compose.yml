@@ -1,0 +1,54 @@
+name: enjyra-b02
+
+# Pull-only distribution definition. See aws.compose.yml for the current publication note —
+# enjyra/azure-labs:console-0.1.0 has NOT yet been pushed to Docker Hub.
+
+services:
+  emulator:
+    image: mcr.microsoft.com/azure-storage/azurite:3.35.0
+    container_name: enjyra-azure-b02
+    command: azurite-blob --blobHost 0.0.0.0 --location /data --loose --skipApiVersionCheck
+    environment:
+      AZURITE_ACCOUNTS: "enjyra:ZW5qeXJhLWxvY2FsLWxhYi1kZXZlbG9wbWVudC1rZXkh"
+    ports:
+      - "10000:10000"
+    volumes:
+      - azure-data:/data
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('net').connect(10000,'127.0.0.1').on('connect',()=>process.exit(0)).on('error',()=>process.exit(1))"]
+      interval: 5s
+      timeout: 4s
+      retries: 20
+      start_period: 8s
+    restart: unless-stopped
+
+  console:
+    image: enjyra/azure-labs:console-0.1.0
+    container_name: enjyra-azure-b02-console
+    environment:
+      LAB_PROVIDER: azure
+      EMULATOR_ENDPOINT: http://emulator:10000
+      AZURE_STORAGE_ACCOUNT: enjyra
+      AZURE_STORAGE_KEY: ZW5qeXJhLWxvY2FsLWxhYi1kZXZlbG9wbWVudC1rZXkh
+    ports:
+      - "8082:8080"
+    depends_on:
+      emulator:
+        condition: service_healthy
+    restart: unless-stopped
+
+  cli:
+    image: enjyra/azure-labs:b02-blob-v6.0.0
+    profiles: ["tools"]
+    entrypoint: ["/workspace/local-cli.sh"]
+    environment:
+      AZURE_STORAGE_CONNECTION_STRING: "DefaultEndpointsProtocol=http;AccountName=enjyra;AccountKey=ZW5qeXJhLWxvY2FsLWxhYi1kZXZlbG9wbWVudC1rZXkh;BlobEndpoint=http://emulator:10000/enjyra;"
+    volumes:
+      - ./cli/azure/local-cli.sh:/workspace/local-cli.sh:ro
+      - ./workspace/azure:/workspace/files
+    depends_on:
+      emulator:
+        condition: service_healthy
+
+volumes:
+  azure-data:

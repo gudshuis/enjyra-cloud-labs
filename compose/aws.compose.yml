@@ -1,0 +1,57 @@
+name: enjyra-b01
+
+# Pull-only distribution definition. The console image is not built locally here — it is
+# pulled from Docker Hub. As of this file's creation, enjyra/aws-labs:console-0.1.0 has
+# NOT yet been pushed, so `start` will fail with an image-not-found error until it is
+# published. See README.md "Current release status".
+
+services:
+  emulator:
+    image: localstack/localstack:4.8.1
+    container_name: enjyra-aws-b01
+    environment:
+      SERVICES: s3
+      AWS_DEFAULT_REGION: us-east-1
+      PERSISTENCE: "1"
+    ports:
+      - "4566:4566"
+    volumes:
+      - aws-data:/var/lib/localstack
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:4566/_localstack/health | grep -q '\"s3\"' || exit 1"]
+      interval: 5s
+      timeout: 4s
+      retries: 20
+      start_period: 10s
+    restart: unless-stopped
+
+  console:
+    image: enjyra/aws-labs:console-0.1.0
+    container_name: enjyra-aws-b01-console
+    environment:
+      LAB_PROVIDER: aws
+      EMULATOR_ENDPOINT: http://emulator:4566
+    ports:
+      - "8081:8080"
+    depends_on:
+      emulator:
+        condition: service_healthy
+    restart: unless-stopped
+
+  cli:
+    image: enjyra/aws-labs:b01-s3-v6.0.0
+    profiles: ["tools"]
+    entrypoint: ["/workspace/local-cli.sh"]
+    environment:
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_DEFAULT_REGION: us-east-1
+    volumes:
+      - ./cli/aws/local-cli.sh:/workspace/local-cli.sh:ro
+      - ./workspace/aws:/workspace/files
+    depends_on:
+      emulator:
+        condition: service_healthy
+
+volumes:
+  aws-data:

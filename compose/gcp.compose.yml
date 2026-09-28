@@ -1,0 +1,53 @@
+name: enjyra-b03
+
+# Pull-only distribution definition. See aws.compose.yml for the current publication note —
+# enjyra/gcp-labs:console-0.1.0 has NOT yet been pushed to Docker Hub.
+
+services:
+  emulator:
+    image: fsouza/fake-gcs-server:1.52.3
+    container_name: enjyra-gcp-b03
+    command: ["-scheme", "http", "-port", "4443", "-external-url", "http://localhost:4443", "-backend", "filesystem", "-filesystem-root", "/data"]
+    ports:
+      - "4443:4443"
+    volumes:
+      - gcp-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- 'http://127.0.0.1:4443/storage/v1/b?project=enjyra-local-project' >/dev/null || exit 1"]
+      interval: 5s
+      timeout: 4s
+      retries: 20
+      start_period: 8s
+    restart: unless-stopped
+
+  console:
+    image: enjyra/gcp-labs:console-0.1.0
+    container_name: enjyra-gcp-b03-console
+    environment:
+      LAB_PROVIDER: gcp
+      EMULATOR_ENDPOINT: http://emulator:4443
+      GCP_PROJECT: enjyra-local-project
+    ports:
+      - "8083:8080"
+    depends_on:
+      emulator:
+        condition: service_healthy
+    restart: unless-stopped
+
+  cli:
+    image: enjyra/gcp-labs:b03-storage-v6.0.0
+    profiles: ["tools"]
+    entrypoint: ["/workspace/local-cli.sh"]
+    environment:
+      CLOUDSDK_CORE_PROJECT: enjyra-local-project
+      CLOUDSDK_AUTH_DISABLE_CREDENTIALS: "true"
+      CLOUDSDK_API_ENDPOINT_OVERRIDES_STORAGE: http://emulator:4443/storage/v1/
+    volumes:
+      - ./cli/gcp/local-cli.sh:/workspace/local-cli.sh:ro
+      - ./workspace/gcp:/workspace/files
+    depends_on:
+      emulator:
+        condition: service_healthy
+
+volumes:
+  gcp-data:

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Reject every additional authorship trailer. Commits in this repository use only the
+# maintainer's own configured Git identity.
+set -euo pipefail
+
+MSG_FILE="$1"
+
+if grep -qiE "^co-authored-by:" "$MSG_FILE"; then
+  echo "ERROR: additional authorship trailers are not allowed in this repository." >&2
+  echo "Remove that line and commit again." >&2
+  exit 1
+fi

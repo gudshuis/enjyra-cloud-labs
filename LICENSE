@@ -1,0 +1,58 @@
+DRAFT — REQUIRES LEGAL REVIEW BEFORE PUBLIC RELEASE
+This is not a reviewed, final license. Do not treat it as legally binding until
+a qualified reviewer has approved it.
+
+ENJYRA Cloud Labs — Educational Use License (Draft)
+Copyright (c) Arun Malve / ENJYRA / gudshuis. All rights reserved.
+
+1. Grant of use
+
+Subject to the terms below, you are permitted to:
+
+  a. Download this repository.
+  b. Run the scripts and Docker Compose definitions it contains, locally, to
+     complete official ENJYRA learning lessons.
+  c. Modify a local copy to the extent necessary to complete those lessons
+     (for example, changing a port number that conflicts with something else
+     on your machine).
+
+2. Restrictions
+
+You may not, without prior written permission from ENJYRA:
+
+  a. Resell this repository, its contents, or access to it.
+  b. Redistribute it, or a modified version of it, as part of another paid or
+     free course, product, or service.
+  c. Rebrand it, or present it, in whole or in part, as your own work or as
+     the work of an organization other than ENJYRA.
+  d. Use it to build a competing educational product or course.
+  e. Remove or alter ENJYRA attribution, branding, or this license.
+
+3. No warranty
+
+This software is provided "as is", without warranty of any kind, express or
+implied, including but not limited to the warranties of merchantability,
+fitness for a particular purpose, and noninfringement. In no event shall the
+authors or copyright holders be liable for any claim, damages, or other
+liability arising from the use of this software.
+
+4. Integrity, not permission
+
+Any checksums, hashes, or (in future) digital signatures distributed with this
+repository exist to help you confirm that a download has not been corrupted
+or tampered with. They are a technical integrity check, not a form of legal
+permission, and do not by themselves grant or restrict any right to use,
+copy, or redistribute this software — the terms above govern that.
+
+5. Third-party components
+
+This repository's Docker Compose definitions reference third-party emulator
+images (for example LocalStack, Azurite, and a GCS-compatible emulator). Those
+images are not owned by ENJYRA and remain subject to their own respective
+licenses.
+
+6. Contact
+
+Questions about permitted use beyond what is described above should be
+directed to the ENJYRA course maintainers through the official ENJYRA
+learning platform, not through this repository's issue tracker.

@@ -1,0 +1,27 @@
+# Secrets and credentials — never commit these
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+credentials
+secrets/
+*.secret
+
+# Logs and temporary files
+*.log
+tmp/
+*.tmp
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# IDE-local state
+.vscode/
+.idea/
+
+# Learner workspace scratch files created while running the labs
+compose/workspace/*/*
+!compose/workspace/*/.gitkeep
