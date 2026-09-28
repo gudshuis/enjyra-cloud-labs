@@ -1,5 +1,16 @@
-# Integrity verification — coming in a later slice
+# Integrity verification
 
-This directory will hold the download-integrity verification scripts (`verify-enjyra-lab-macos.sh`, `verify-enjyra-lab-linux.sh`, `verify-enjyra-lab.ps1`) once `checksums.txt` exists at the repository root.
+Run the script for your platform from the repository root:
 
-They are not built yet. This repository slice establishes the repository structure, the launcher scripts, and the pull-only Compose definitions first, so the verification scripts have a stable, real file layout to check against rather than one that might still change.
+```sh
+./verify/verify-enjyra-lab-macos.sh     # macOS
+./verify/verify-enjyra-lab-linux.sh     # Linux
+```
+
+```powershell
+.\verify\verify-enjyra-lab.ps1          # Windows
+```
+
+Each script checks every file listed in `checksums.txt` against its SHA-256 hash, checks that Docker, the Docker Compose plugin, and Git are present, and confirms the launcher for your platform exists. It also prints the **release fingerprint** — the SHA-256 hash of `checksums.txt` itself — so you can compare it against the value published in the README for this release.
+
+A checksum mismatch means the file changed since it was released — either corruption in transit, or a tampered copy. It does not tell you *who* published the release; see `signatures/README.md` for that distinction.

@@ -1,0 +1,46 @@
+name: Commit policy
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  no-co-authored-by:
+    name: Reject Co-Authored-By trailers
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check commit messages
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            range="origin/${{ github.base_ref }}..HEAD"
+          elif [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ] && git cat-file -e "${{ github.event.before }}" 2>/dev/null; then
+            range="${{ github.event.before }}..${{ github.sha }}"
+          else
+            range="${{ github.sha }}"
+            range="-1 $range"
+          fi
+
+          echo "Checking commit range: $range"
+          if echo "$range" | grep -q '^-1'; then
+            offenders=$(git log $range --format='%H' | while read -r sha; do
+              if git log -1 --format='%B' "$sha" | grep -qiE '^co-authored-by:'; then echo "$sha"; fi
+            done)
+          else
+            offenders=$(git log "$range" --format='%H' | while read -r sha; do
+              if git log -1 --format='%B' "$sha" | grep -qiE '^co-authored-by:'; then echo "$sha"; fi
+            done)
+          fi
+
+          if [ -n "$offenders" ]; then
+            echo "Co-Authored-By trailers are not permitted in this repository."
+            echo "Offending commit(s):"
+            echo "$offenders"
+            exit 1
+          fi
+
+          echo "No Co-Authored-By trailers found."
