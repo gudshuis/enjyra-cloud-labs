@@ -8,7 +8,17 @@ Local AWS, Azure, and Google Cloud storage learning environments for official EN
 
 ## Current release status
 
-This repository's file structure, launcher scripts, and Compose definitions are complete and locally tested. **The ENJYRA console Docker images (`enjyra/aws-labs:console-0.1.0`, `enjyra/azure-labs:console-0.1.0`, `enjyra/gcp-labs:console-0.1.0`) have not yet been published to Docker Hub.** Until they are, `start` will fail with an image-not-found error on a machine that doesn't already have them built locally. Integrity verification (checksums) has not shipped yet either — see `verify/README.md`.
+**REMOTE STUDENT READY.** The three console images are published to Docker Hub for `linux/amd64` and `linux/arm64`, and `start` was proven end-to-end from a genuinely fresh `git clone` on this machine — with the images removed first so the test could not silently reuse a local build:
+
+| Lab | Image | Manifest digest |
+|---|---|---|
+| AWS | `enjyra/aws-labs:console-0.1.0` | `sha256:8f0f5efce4db3c895720456190d3a6a0494d8a6f44d2649e5260d59f1395fc15` |
+| Azure | `enjyra/azure-labs:console-0.1.0` | `sha256:4d482740b95fd86da324cf0e07302db84e1159fde60893d3eca15a5f13ca2c01` |
+| GCP | `enjyra/gcp-labs:console-0.1.0` | `sha256:43f6f2fb9541437b3ae9d4cd73c76675eb7d9d29458eaa64c80ffede29a4b080` |
+
+Each digest is an OCI image index covering both `linux/amd64` and `linux/arm64`.
+
+Release fingerprint (SHA-256 of `checksums.txt`): `d379642c3945d45284f96164d2466365f7e97256b2ef9846c08f449b14ae20b8`.
 
 ## What this repository is
 
