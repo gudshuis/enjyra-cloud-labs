@@ -1,9 +1,7 @@
 name: enjyra-b01
 
-# Pull-only distribution definition. The console image is not built locally here — it is
-# pulled from Docker Hub. As of this file's creation, enjyra/aws-labs:console-0.1.0 has
-# NOT yet been pushed, so `start` will fail with an image-not-found error until it is
-# published. See README.md "Current release status".
+# Pull-only distribution definition. The official ENJYRA AWS console image is
+# published to Docker Hub for linux/amd64 and linux/arm64.
 
 services:
   emulator:
@@ -26,7 +24,7 @@ services:
     restart: unless-stopped
 
   console:
-    image: enjyra/aws-labs:console-0.1.0
+    image: enjyra/aws-labs:console-0.1.1
     container_name: enjyra-aws-b01-console
     environment:
       LAB_PROVIDER: aws

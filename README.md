@@ -12,13 +12,13 @@ Local AWS, Azure, and Google Cloud storage learning environments for official EN
 
 | Lab | Image | Manifest digest |
 |---|---|---|
-| AWS | `enjyra/aws-labs:console-0.1.0` | `sha256:6b48a33bc087d4dc39fb16f5333251dad4c48e1328dcb7f465cd302bd84fae28` |
+| AWS | `enjyra/aws-labs:console-0.1.1` | `sha256:b2cebb2e8ce1c0b2e788fec79cd5ac5b4e370f8d11a5506d9f33b65449b0e14b` |
 | Azure | `enjyra/azure-labs:console-0.1.1` | `sha256:5b6cefb5712c5b942e5eeef0c04d7176327d753744fb09ae01870fbcc0f9b7bc` |
 | GCP | `enjyra/gcp-labs:console-0.1.1` | `sha256:4499bffba2cc5c0a89f142c7ec2c7a7b758f8ed07a8453b05698f1435931bcb5` |
 
 Each digest is an OCI image index covering both `linux/amd64` and `linux/arm64`. Each image carries an embedded ENJYRA usage licence (`/licenses/ENJYRA-LAB-LICENSE.txt`, a legal-review-pending draft), full OCI identity/fingerprint labels, an SPDX SBOM, and build provenance — see `docs/FUTURE_SECURE_LAB_DELIVERY.md` in the private course repository for what security measures are real today versus future work. These images are **not cryptographically signed** — no secure signing identity is configured yet.
 
-Release fingerprint (SHA-256 of `checksums.txt`): `1f7a9d0696d5d38d36dd74848730e27f1b5d01a97230273e1c22b810f0d49371`.
+Release fingerprint (SHA-256 of `checksums.txt`): `349460bf446d1ac37210d43e2d00ada19a783ce1d904c316de2897eae49d385b`.
 
 ## What this repository is
 
