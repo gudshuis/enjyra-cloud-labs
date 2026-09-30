@@ -13,12 +13,12 @@ Local AWS, Azure, and Google Cloud storage learning environments for official EN
 | Lab | Image | Manifest digest |
 |---|---|---|
 | AWS | `enjyra/aws-labs:console-0.1.0` | `sha256:6b48a33bc087d4dc39fb16f5333251dad4c48e1328dcb7f465cd302bd84fae28` |
-| Azure | `enjyra/azure-labs:console-0.1.0` | `sha256:c40a7b639302073d57f70594c705558bfc3042000bd21910b40c7a8a25af4871` |
-| GCP | `enjyra/gcp-labs:console-0.1.0` | `sha256:3d2397ff8278cc71d56814a69ff5178a6b432ca3df8a5ec325e653f771fd7958` |
+| Azure | `enjyra/azure-labs:console-0.1.1` | `sha256:5b6cefb5712c5b942e5eeef0c04d7176327d753744fb09ae01870fbcc0f9b7bc` |
+| GCP | `enjyra/gcp-labs:console-0.1.1` | `sha256:4499bffba2cc5c0a89f142c7ec2c7a7b758f8ed07a8453b05698f1435931bcb5` |
 
 Each digest is an OCI image index covering both `linux/amd64` and `linux/arm64`. Each image carries an embedded ENJYRA usage licence (`/licenses/ENJYRA-LAB-LICENSE.txt`, a legal-review-pending draft), full OCI identity/fingerprint labels, an SPDX SBOM, and build provenance — see `docs/FUTURE_SECURE_LAB_DELIVERY.md` in the private course repository for what security measures are real today versus future work. These images are **not cryptographically signed** — no secure signing identity is configured yet.
 
-Release fingerprint (SHA-256 of `checksums.txt`): `d379642c3945d45284f96164d2466365f7e97256b2ef9846c08f449b14ae20b8`.
+Release fingerprint (SHA-256 of `checksums.txt`): `1f7a9d0696d5d38d36dd74848730e27f1b5d01a97230273e1c22b810f0d49371`.
 
 ## What this repository is
 
@@ -127,7 +127,7 @@ Some lessons ask you to run AWS/Azure/gcloud CLI commands against the lab's emul
 ## Troubleshooting
 
 - **"Docker is installed but not reachable"** — start Docker Desktop (or the Docker Engine service on Linux), then retry.
-- **"pull access denied" / image not found** — see "Current release status" above; the console images are not published yet.
+- **"pull access denied" / image not found** — confirm Docker can reach Docker Hub, then compare the requested tag with the "Current release status" table above.
 - **A port (8081/8082/8083) is already in use** — stop whatever else is using it, or ask in the ENJYRA course for guidance; the launcher does not currently support remapping ports.
 
 ## Security

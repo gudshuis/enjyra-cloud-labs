@@ -1,7 +1,7 @@
 name: enjyra-b03
 
-# Pull-only distribution definition. See aws.compose.yml for the current publication note —
-# enjyra/gcp-labs:console-0.1.0 has NOT yet been pushed to Docker Hub.
+# Pull-only distribution definition. The official ENJYRA GCP console image is
+# published to Docker Hub for linux/amd64 and linux/arm64.
 
 services:
   emulator:
@@ -21,7 +21,7 @@ services:
     restart: unless-stopped
 
   console:
-    image: enjyra/gcp-labs:console-0.1.0
+    image: enjyra/gcp-labs:console-0.1.1
     container_name: enjyra-gcp-b03-console
     environment:
       LAB_PROVIDER: gcp
